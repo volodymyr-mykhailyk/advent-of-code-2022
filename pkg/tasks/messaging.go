@@ -9,5 +9,5 @@ func Announce(message string) {
 }
 
 func Communicate(message string, args ...any) {
-	fmt.Printf(message, args...)
+	fmt.Printf(message+"\n", args...)
 }
