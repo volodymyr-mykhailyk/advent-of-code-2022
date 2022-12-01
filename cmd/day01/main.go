@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/volodymyr-mykhailyk/advent-of-code-2022/pkg/science"
-	"github.com/volodymyr-mykhailyk/advent-of-code-2022/pkg/tasks"
-	"github.com/volodymyr-mykhailyk/advent-of-code-2022/pkg/transformations"
+	"github.com/volodymyr-mykhailyk/advent-of-code-go-tools/pkg/science"
+	"github.com/volodymyr-mykhailyk/advent-of-code-go-tools/pkg/tasks"
+	"github.com/volodymyr-mykhailyk/advent-of-code-go-tools/pkg/transformations"
 	"sort"
 )
 
