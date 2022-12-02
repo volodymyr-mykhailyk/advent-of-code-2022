@@ -9,11 +9,18 @@ func main() {
 	tasks.Announce("Day02")
 	moves := readData()
 	tasks.Communicate("Predicting Rock Paper Scissors Game with %v moves", len(moves))
+	tasks.Highlight("part1")
 	score := 0
 	for _, move := range moves {
 		score += rps.RoundScore(move)
 	}
 	tasks.Communicate("Predicted score for the game is: %v", score)
+	tasks.Highlight("part2")
+	score = 0
+	for _, move := range moves {
+		score += rps.RoundScore(rps.PredictCorrectMove(move))
+	}
+	tasks.Communicate("Predicted score for correct strategy is: %v", score)
 }
 
 func readData() []rps.Move {

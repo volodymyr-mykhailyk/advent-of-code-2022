@@ -29,13 +29,25 @@ var moveNormalization = map[string]string{
 	"C": "C",
 }
 
+var movePredictions = map[string]string{
+	"AX": "C",
+	"BX": "A",
+	"CX": "B",
+	"AY": "A",
+	"BY": "B",
+	"CY": "C",
+	"AZ": "B",
+	"BZ": "C",
+	"CZ": "A",
+}
+
 type Move struct {
 	opponent string
 	you      string
 }
 
 func (move Move) String() string {
-	return move.opponent + " " + move.you
+	return move.opponent + move.you
 }
 
 func ParseMove(line string) Move {
@@ -48,12 +60,16 @@ func RoundScore(move Move) int {
 	return moveScore(move) + winningScore(move)
 }
 
+func PredictCorrectMove(move Move) Move {
+	return Move{opponent: move.opponent, you: movePredictions[move.String()]}
+}
+
 func normalizeMove(move Move) Move {
 	return Move{opponent: move.opponent, you: moveNormalization[move.you]}
 }
 
 func winningScore(move Move) int {
-	return winningScores[move.opponent+move.you]
+	return winningScores[move.String()]
 }
 
 func moveScore(move Move) int {
