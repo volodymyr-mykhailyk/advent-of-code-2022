@@ -1,31 +1,61 @@
 package rps
 
+import "strings"
+
 var moveScores = map[string]int{
-	"X": 1,
-	"Y": 2,
-	"Z": 3,
+	"A": 1,
+	"B": 2,
+	"C": 3,
 }
 
 var winningScores = map[string]int{
-	"AX": 3,
-	"AY": 6,
-	"AZ": 0,
-	"BX": 0,
-	"BY": 3,
-	"BZ": 6,
-	"CX": 6,
-	"CY": 0,
-	"CZ": 3,
+	"AA": 3,
+	"AB": 6,
+	"AC": 0,
+	"BA": 0,
+	"BB": 3,
+	"BC": 6,
+	"CA": 6,
+	"CB": 0,
+	"CC": 3,
 }
 
-func RoundScore(opponent string, you string) int {
-	return moveScore(you) + winningScore(opponent, you)
+var moveNormalization = map[string]string{
+	"X": "A",
+	"Y": "B",
+	"Z": "C",
+	"A": "A",
+	"B": "B",
+	"C": "C",
 }
 
-func winningScore(opponent string, you string) int {
-	return winningScores[opponent+you]
+type Move struct {
+	opponent string
+	you      string
 }
 
-func moveScore(you string) int {
-	return moveScores[you]
+func (move Move) String() string {
+	return move.opponent + " " + move.you
+}
+
+func ParseMove(line string) Move {
+	moves := strings.Fields(line)
+	return Move{opponent: moves[0], you: moves[1]}
+}
+
+func RoundScore(move Move) int {
+	move = normalizeMove(move)
+	return moveScore(move) + winningScore(move)
+}
+
+func normalizeMove(move Move) Move {
+	return Move{opponent: move.opponent, you: moveNormalization[move.you]}
+}
+
+func winningScore(move Move) int {
+	return winningScores[move.opponent+move.you]
+}
+
+func moveScore(move Move) int {
+	return moveScores[move.you]
 }
